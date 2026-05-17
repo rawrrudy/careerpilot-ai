@@ -1,14 +1,29 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from openai import OpenAI
 from dotenv import load_dotenv
 import os
 
-# OpenAI client
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+# Load environment variables
+load_dotenv()
 
+# OpenAI client
+client = OpenAI(
+    api_key=os.getenv("OPENAI_API_KEY")
+)
+
+# FastAPI app
 app = FastAPI()
 
+# Enable CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # Input structure
 class StudentData(BaseModel):
@@ -16,12 +31,12 @@ class StudentData(BaseModel):
     skills: list[str]
     grade: int
 
-
+# Home route
 @app.get("/")
 def home():
     return {"message": "CareerPilot Backend Running"}
 
-
+# Career recommendation route
 @app.post("/career-recommendation")
 def recommend_career(data: StudentData):
 
@@ -35,14 +50,20 @@ def recommend_career(data: StudentData):
     2. Why it suits them
     3. Skills they should learn next
 
-    Keep response concise.
+    Keep the response concise and beginner-friendly.
     """
 
     response = client.chat.completions.create(
         model="gpt-4o-mini",
         messages=[
-            {"role": "system", "content": "You are a career guidance AI."},
-            {"role": "user", "content": prompt}
+            {
+                "role": "system",
+                "content": "You are an expert AI career guidance counselor."
+            },
+            {
+                "role": "user",
+                "content": prompt
+            }
         ]
     )
 
