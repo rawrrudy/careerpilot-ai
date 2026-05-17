@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
+
     *{
       margin:0;
       padding:0;
@@ -21,16 +22,20 @@
         radial-gradient(circle at top left,#7c3aed 0%,transparent 30%),
         radial-gradient(circle at bottom right,#06b6d4 0%,transparent 30%),
         #050816;
-      overflow:hidden;
+
       display:flex;
       justify-content:center;
-      align-items:center;
+      align-items:flex-start;
+
       color:white;
       padding:20px;
+
+      overflow-y:auto;
+      overflow-x:hidden;
     }
 
     .bg-grid{
-      position:absolute;
+      position:fixed;
       inset:0;
       background-image:
       linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
@@ -40,7 +45,7 @@
     }
 
     .floating{
-      position:absolute;
+      position:fixed;
       border-radius:50%;
       filter:blur(70px);
       opacity:0.35;
@@ -78,26 +83,21 @@
       z-index:2;
       width:100%;
       max-width:500px;
+
       backdrop-filter:blur(20px);
       background:rgba(255,255,255,0.08);
+
       border:1px solid rgba(255,255,255,0.1);
+
       border-radius:28px;
       padding:40px;
+
       box-shadow:
       0 0 40px rgba(124,58,237,0.25),
       0 0 80px rgba(6,182,212,0.12);
-      animation:fadeIn 1s ease;
-    }
 
-    @keyframes fadeIn{
-      from{
-        opacity:0;
-        transform:translateY(20px);
-      }
-      to{
-        opacity:1;
-        transform:translateY(0px);
-      }
+      margin-top:20px;
+      margin-bottom:20px;
     }
 
     .logo{
@@ -206,16 +206,18 @@
       border:1px solid rgba(255,255,255,0.1);
       display:none;
       animation:fadeIn 0.5s ease;
+      white-space:pre-line;
+      line-height:1.8;
     }
 
     .result h2{
-      margin-bottom:10px;
+      margin-bottom:15px;
       font-size:22px;
     }
 
     .badge{
       display:inline-block;
-      margin-top:12px;
+      margin-top:16px;
       padding:8px 14px;
       border-radius:999px;
       background:rgba(34,211,238,0.15);
@@ -350,8 +352,8 @@ async function generateCareer() {
 
     result.style.display = "block";
 
-    careerText.innerHTML =
-      `<strong>${data.recommendation}</strong>`;
+    careerText.innerText =
+      data.recommendation;
 
   }
 
