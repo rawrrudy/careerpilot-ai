@@ -67,6 +67,8 @@ def recommend_career(data: StudentData):
         ]
     )
 
+    text = response.choices[0].message.content.replace("**", "")
+
     return {
         "recommendation": response.choices[0].message.content
     }
