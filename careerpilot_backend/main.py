@@ -39,7 +39,7 @@ def recommend_career(data: StudentData):
     """
 
     response = client.chat.completions.create(
-        model="gpt-4.1-mini",
+        model="gpt-4o-mini",
         messages=[
             {"role": "system", "content": "You are a career guidance AI."},
             {"role": "user", "content": prompt}
